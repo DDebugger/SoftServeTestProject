@@ -1,15 +1,25 @@
 package army_battle;
 
 public class Warrior {
-    private int health = 50;
+    private int health;
     private static int attack = 5;
+
+    public Warrior(int health) {
+        this.health = health;
+    }
+
+    public Warrior() {
+        this.health = 50;
+    }
 
     public static Warrior of(String clazz) {
         switch (clazz) {
             case "Warrior":
-                return new Warrior();
+                return new Warrior(50);
             case "Knight":
                 return new Knight();
+            case "Defender":
+                return new Defender();
             default:
                 throw new IllegalArgumentException("Unknown Warrior type: " + clazz);
         }
@@ -19,7 +29,7 @@ public class Warrior {
         return health;
     }
 
-    protected void setHealth(int health) {
+    private void setHealth(int health) {
         this.health = health;
     }
 
@@ -31,12 +41,16 @@ public class Warrior {
         return getHealth() > 0;
     }
 
-    public void getDamage(Warrior warrior) {
-        setHealth(getHealth() - warrior.getAttack());
+    public int getAmountOfDamageFrom(Warrior warrior) {
+        return getHealth() - warrior.getAttack();
+    }
+
+    public void getDamageFrom(Warrior warrior) {
+        setHealth(getAmountOfDamageFrom(warrior));
     }
 
     public void attack(Warrior warrior) {
-        warrior.getDamage(this);
+        warrior.getDamageFrom(this);
     }
 
 }

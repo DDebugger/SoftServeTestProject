@@ -1,6 +1,5 @@
 package army_battle;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -47,10 +46,24 @@ public class BattleTest {
 
     @ParameterizedTest
     @CsvSource({"1,2,false", "2,3,false", "5,7,false", "20,21,true", "10,11,true", "11,7,true"})
-    public void battleOfTwoArmies(int firstArmyCount, int secondArmyCount, boolean expected) {
+    public void battleOfTwoArmiesWithoutDefender(int firstArmyCount, int secondArmyCount, boolean expected) {
         Army army_1 = new Army().addUnits("Warrior", firstArmyCount);
         Army army_2 = new Army().addUnits("Warrior", secondArmyCount);
         assertEquals(expected, Battle.fight(army_1, army_2));
     }
 
+
+    @ParameterizedTest
+    @CsvSource({"4,5,5,4,true", "5,4,20,21,true", "5,10,10,5,true", "2,1,1,5,false"})
+    public void battleOfTwoArmiesWithDefender(int firstArmyFirstDefenderCount, int firstArmySecondDefenderCount,
+                                              int firstArmyWarriorCount, int secondArmyWarriorCount,
+                                              boolean expected) {
+        Army army_1 = new Army()
+                .addUnits("Defender", firstArmyFirstDefenderCount)
+                .addUnits("Defender", firstArmySecondDefenderCount)
+                .addUnits("Warrior", firstArmyWarriorCount);
+        Army army_2 = new Army()
+                .addUnits("Warrior", secondArmyWarriorCount);
+        assertEquals(expected, Battle.fight(army_1, army_2));
+    }
 }
