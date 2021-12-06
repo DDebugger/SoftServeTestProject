@@ -9,27 +9,24 @@ public class Warrior {
     }
 
     public Warrior() {
-        this.health = 50;
+        this(50);
     }
 
     public static Warrior of(String clazz) {
-        switch (clazz) {
-            case "Warrior":
-                return new Warrior(50);
-            case "Knight":
-                return new Knight();
-            case "Defender":
-                return new Defender();
-            default:
-                throw new IllegalArgumentException("Unknown Warrior type: " + clazz);
-        }
+        return switch (clazz) {
+            case "Warrior" -> new Warrior();
+            case "Knight" -> new Knight();
+            case "Defender" -> new Defender();
+            case "Vampire" -> new Vampire();
+            default -> throw new IllegalArgumentException("Unknown Warrior type: " + clazz);
+        };
     }
 
     int getHealth() {
         return health;
     }
 
-    private void setHealth(int health) {
+    protected void setHealth(int health) {
         this.health = health;
     }
 
@@ -41,12 +38,12 @@ public class Warrior {
         return getHealth() > 0;
     }
 
-    public int getAmountOfDamageFrom(Warrior warrior) {
-        return getHealth() - warrior.getAttack();
+    protected int getAmountOfDamageFrom(Warrior warrior) {
+        return warrior.getAttack();
     }
 
     public void getDamageFrom(Warrior warrior) {
-        setHealth(getAmountOfDamageFrom(warrior));
+        setHealth(getHealth() - getAmountOfDamageFrom(warrior));
     }
 
     public void attack(Warrior warrior) {

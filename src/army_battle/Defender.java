@@ -1,22 +1,13 @@
 package army_battle;
 
 public class Defender extends Warrior {
+    private static int health = 60;
     private static int defence = 2;
     private static int attack = 3;
 
     public Defender() {
-        super(60);
+        super(health);
     }
-
-//    @Override
-//    int getHealth() {
-//        return health;
-//    }
-//
-//    @Override
-//    protected void setHealth(int health) {
-//        Defender.health = health;
-//    }
 
     @Override
     public int getAttack() {
@@ -25,9 +16,9 @@ public class Defender extends Warrior {
 
 
     @Override
-    public int getAmountOfDamageFrom(Warrior warrior) {
+    protected int getAmountOfDamageFrom(Warrior warrior) {
         if (warrior.getAttack() > defence) {
-            return getHealth() - (warrior.getAttack() - defence);
+            return warrior.getAttack() - defence;
         }else {
             return getHealth();
         }

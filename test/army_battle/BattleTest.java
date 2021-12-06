@@ -66,4 +66,22 @@ public class BattleTest {
                 .addUnits("Warrior", secondArmyWarriorCount);
         assertEquals(expected, Battle.fight(army_1, army_2));
     }
+
+    @ParameterizedTest
+    @CsvSource({"7,5,6,6,6,6,false", "4,2,3,4,4,3,false", "4,11,3,4,4,13,true", "8,9,3,4,4,13,true"})
+    public void battleOfTwoArmiesWithVampire(int firstArmyWarriorCount, int firstArmyDefenderCount, int firstArmyVampireCount,
+                                              int secondArmyWarriorCount, int secondArmyDefenderCount, int secondArmyVampireCount,
+                                              boolean expected) {
+        Army army_1 = new Army()
+                .addUnits("Defender", firstArmyDefenderCount)
+                .addUnits("Vampire", firstArmyVampireCount)
+                .addUnits("Warrior", firstArmyWarriorCount);
+        Army army_2 = new Army()
+                .addUnits("Warrior", secondArmyWarriorCount)
+                .addUnits("Defender", secondArmyDefenderCount)
+                .addUnits("Vampire", secondArmyVampireCount);
+        assertEquals(expected, Battle.fight(army_1, army_2));
+    }
+
+
 }
