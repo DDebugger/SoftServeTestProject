@@ -1,15 +1,18 @@
 package army_battle;
 
-public class Warrior {
+public class Warrior implements AttackCapable{
     private int health;
+    private static int initHealth = 50;
     private static int attack = 5;
 
-    public Warrior(int health) {
+    private Warrior behind;
+
+    Warrior(int health) {
         this.health = health;
     }
 
     public Warrior() {
-        this(50);
+        this(initHealth);
     }
 
     public static Warrior of(String clazz) {
@@ -18,6 +21,7 @@ public class Warrior {
             case "Knight" -> new Knight();
             case "Defender" -> new Defender();
             case "Vampire" -> new Vampire();
+            case "Lancer" -> new Lancer();
             default -> throw new IllegalArgumentException("Unknown Warrior type: " + clazz);
         };
     }
@@ -38,16 +42,19 @@ public class Warrior {
         return getHealth() > 0;
     }
 
-    protected int getAmountOfDamageFrom(Warrior warrior) {
-        return warrior.getAttack();
-    }
-
-    public void getDamageFrom(Warrior warrior) {
-        setHealth(getHealth() - getAmountOfDamageFrom(warrior));
+    public void getDamageFrom(AttackCapable warrior) {
+        setHealth(getHealth() - warrior.getAttack());
     }
 
     public void attack(Warrior warrior) {
         warrior.getDamageFrom(this);
     }
 
+    protected Warrior getBehind() {
+        return behind;
+    }
+
+    protected void setBehind(Warrior behind) {
+        this.behind = behind;
+    }
 }

@@ -14,13 +14,10 @@ public class Defender extends Warrior {
         return attack;
     }
 
-
     @Override
-    protected int getAmountOfDamageFrom(Warrior warrior) {
-        if (warrior.getAttack() > defence) {
-            return warrior.getAttack() - defence;
-        }else {
-            return getHealth();
-        }
+    public void getDamageFrom(AttackCapable warrior) {
+        setHealth(getHealth() - Math.max(0, warrior.getAttack() - defence));
+
     }
+
 }

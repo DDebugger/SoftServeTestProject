@@ -70,8 +70,8 @@ public class BattleTest {
     @ParameterizedTest
     @CsvSource({"7,5,6,6,6,6,false", "4,2,3,4,4,3,false", "4,11,3,4,4,13,true", "8,9,3,4,4,13,true"})
     public void battleOfTwoArmiesWithVampire(int firstArmyWarriorCount, int firstArmyDefenderCount, int firstArmyVampireCount,
-                                              int secondArmyWarriorCount, int secondArmyDefenderCount, int secondArmyVampireCount,
-                                              boolean expected) {
+                                             int secondArmyWarriorCount, int secondArmyDefenderCount, int secondArmyVampireCount,
+                                             boolean expected) {
         Army army_1 = new Army()
                 .addUnits("Defender", firstArmyDefenderCount)
                 .addUnits("Vampire", firstArmyVampireCount)
@@ -80,6 +80,26 @@ public class BattleTest {
                 .addUnits("Warrior", secondArmyWarriorCount)
                 .addUnits("Defender", secondArmyDefenderCount)
                 .addUnits("Vampire", secondArmyVampireCount);
+        assertEquals(expected, Battle.fight(army_1, army_2));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"5,3,4,2,4,4,6,5,false", "7,3,4,2,4,4,6,4,true"})
+    public void battleOfTwoArmiesWithLancer(int firstArmyLancerCount, int firstArmyVampireCount,
+                                            int firstArmyWarriorCount, int firstArmyDefenderCount,
+                                            int secondArmyWarriorCount, int secondArmyDefenderCount,
+                                            int secondArmyVampireCount, int secondArmyLancerCount,
+                                            boolean expected) {
+        Army army_1 = new Army()
+                .addUnits("Lancer", firstArmyLancerCount)
+                .addUnits("Vampire", firstArmyVampireCount)
+                .addUnits("Warrior", firstArmyWarriorCount)
+                .addUnits("Defender", firstArmyDefenderCount);
+        Army army_2 = new Army()
+                .addUnits("Warrior", secondArmyWarriorCount)
+                .addUnits("Defender", secondArmyDefenderCount)
+                .addUnits("Vampire", secondArmyVampireCount)
+                .addUnits("Lancer", secondArmyLancerCount);
         assertEquals(expected, Battle.fight(army_1, army_2));
     }
 
