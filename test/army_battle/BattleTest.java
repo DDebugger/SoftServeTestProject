@@ -1,5 +1,6 @@
 package army_battle;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -103,5 +104,94 @@ public class BattleTest {
         assertEquals(expected, Battle.fight(army_1, army_2));
     }
 
+    @DisplayName("Healer testing with param battle Checkio, 9 units vs 13")
+    @Test
+    void battleTestHealerCheckio() {
+        //arrange
+        Army myArmy = new Army();
+        myArmy.addUnits("Defender", 2);
+        myArmy.addUnits("Healer", 1);
+        myArmy.addUnits("Vampire", 2);
+        myArmy.addUnits("Lancer", 2);
+        myArmy.addUnits("Healer", 1);
+        myArmy.addUnits("Warrior", 1);
+
+        Army enemyArmy = new Army();
+        enemyArmy.addUnits("Warrior", 2);
+        enemyArmy.addUnits("Lancer", 4);
+        enemyArmy.addUnits("Healer", 1);
+        enemyArmy.addUnits("Defender", 2);
+        enemyArmy.addUnits("Vampire", 3);
+        enemyArmy.addUnits("Healer", 1);
+
+        var result = Battle.fight(myArmy, enemyArmy);
+
+        assertFalse(result);
+    }
+
+    @DisplayName("Healer testing with param battle Checkio #2, 9 units vs 13")
+    @Test
+    void battleTestHealerCheckioSecond() {
+        //arrange
+        Army myArmy = new Army();
+        myArmy.addUnits("Warrior", 1);
+        myArmy.addUnits("Lancer", 1);
+        myArmy.addUnits("Healer", 1);
+        myArmy.addUnits("Defender", 2);
+
+        Army enemyArmy = new Army();
+        enemyArmy.addUnits("Vampire", 3);
+        enemyArmy.addUnits("Warrior", 1);
+        enemyArmy.addUnits("Healer", 1);
+        enemyArmy.addUnits("Lancer", 2);
+
+        var result = Battle.fight(myArmy, enemyArmy);
+
+        assertTrue(result);
+    }
+
+    @Test
+    void battleTestHealerGitHub() {
+        Army army_1 = new Army()
+                .addUnits("Lancer", 1)
+                .addUnits("Warrior", 3)
+                .addUnits("Healer", 1)
+                .addUnits("Warrior", 4)
+                .addUnits("Healer", 1)
+                .addUnits("Knight", 2);
+        Army army_2 = new Army()
+                .addUnits("Warrior", 4)
+                .addUnits("Defender", 4)
+                .addUnits("Healer", 1)
+                .addUnits("Vampire", 6)
+                .addUnits("Lancer", 4);
+
+        var result = Battle.fight(army_1, army_2);
+
+        assertFalse(result);
+    }
+
+    @Test
+    void battleTestHealerCheckioThird() {
+        Army myArmy = new Army()
+                .addUnits("Defender", 2)
+                .addUnits("Healer", 1)
+                .addUnits("Vampire", 2)
+                .addUnits("Lancer", 2)
+                .addUnits("Healer", 1)
+                .addUnits("Warrior", 1);
+
+        Army enemyArmy = new Army()
+                .addUnits("Warrior", 2)
+                .addUnits("Lancer", 4)
+                .addUnits("Healer", 1)
+                .addUnits("Defender", 2)
+                .addUnits("Vampire", 3)
+                .addUnits("Healer", 1);
+
+        var result = Battle.fight(myArmy, enemyArmy);
+
+        assertFalse(result);
+    }
 
 }

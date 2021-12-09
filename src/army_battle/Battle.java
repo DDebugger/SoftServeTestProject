@@ -1,5 +1,6 @@
 package army_battle;
 
+
 public class Battle {
     public static boolean fight(Warrior warrior1, Warrior warrior2) {
         while (true) {
@@ -31,4 +32,5 @@ public class Battle {
             fight(attacker.get(), defender.get());
         }
     }
+
 }

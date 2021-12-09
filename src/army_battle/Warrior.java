@@ -1,6 +1,8 @@
 package army_battle;
 
-public class Warrior implements AttackCapable{
+import java.util.Objects;
+
+public class Warrior implements AttackCapable {
     private int health;
     private static int initHealth = 50;
     private static int attack = 5;
@@ -22,12 +24,25 @@ public class Warrior implements AttackCapable{
             case "Defender" -> new Defender();
             case "Vampire" -> new Vampire();
             case "Lancer" -> new Lancer();
+            case "Healer" -> new Healer();
             default -> throw new IllegalArgumentException("Unknown Warrior type: " + clazz);
         };
     }
 
     int getHealth() {
         return health;
+    }
+
+    public void transmitSignal() {
+        if (!Objects.isNull(this.getBehind())) {
+            this.getBehind().handleSignalFrom(this);
+        }
+    }
+
+    public void handleSignalFrom(Warrior warrior) {
+        if (!Objects.isNull(warrior.getBehind())) {
+            warrior.getBehind().transmitSignal();
+        }
     }
 
     protected void setHealth(int health) {
@@ -48,6 +63,7 @@ public class Warrior implements AttackCapable{
 
     public void attack(Warrior warrior) {
         warrior.getDamageFrom(this);
+        transmitSignal();
     }
 
     protected Warrior getBehind() {
@@ -56,5 +72,9 @@ public class Warrior implements AttackCapable{
 
     protected void setBehind(Warrior behind) {
         this.behind = behind;
+    }
+
+    protected int getInitHealth() {
+        return initHealth;
     }
 }
