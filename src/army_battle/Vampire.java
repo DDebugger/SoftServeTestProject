@@ -15,10 +15,20 @@ public class Vampire extends Warrior {
     }
 
     @Override
+    protected int getInitHealth() {
+        return health;
+    }
+
+    @Override
     public void attack(Warrior warrior) {
         int healthDecrease = warrior.getHealth();
         warrior.getDamageFrom(this);
         healthDecrease = healthDecrease - warrior.getHealth();
-        setHealth(getHealth() + healthDecrease * vampirism / 100);
+
+        if (getHealth() + healthDecrease * vampirism / 100 <= getInitHealth()) {
+            setHealth(getHealth() + healthDecrease * vampirism / 100);
+        }else {
+            setHealth(getInitHealth());
+        }
     }
 }

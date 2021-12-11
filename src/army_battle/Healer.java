@@ -21,10 +21,15 @@ public class Healer extends Warrior {
     }
 
 
+    @Override
+    protected int getInitHealth() {
+        return health;
+    }
+
     private void heal(Warrior warrior) {
         if (warrior.getHealth() + healingPower <= warrior.getInitHealth()) {
             warrior.setHealth(warrior.getHealth() + healingPower);
-        }else {
+        } else {
             warrior.setHealth(warrior.getInitHealth());
         }
     }

@@ -194,4 +194,85 @@ public class BattleTest {
         assertFalse(result);
     }
 
+    @Test
+    void battleTestStraightFightFirst() {
+        Army army_1 = new Army()
+                .addUnits("Lancer", 5)
+                .addUnits("Vampire", 3)
+                .addUnits("Warrior", 4)
+                .addUnits("Defender", 2);
+        Army army_2 = new Army()
+                .addUnits("Warrior", 4)
+                .addUnits("Defender", 4)
+                .addUnits("Vampire", 6)
+                .addUnits("Lancer", 5);
+
+
+        var result = Battle.straight_fight(army_1, army_2);
+
+        assertFalse(result);
+    }
+
+    @Test
+    void battleTestStraightFightSecond() {
+        Army army_1 = new Army()
+                .addUnits("Lancer", 7)
+                .addUnits("Vampire", 3)
+                .addUnits("Warrior", 4)
+                .addUnits("Defender", 2);
+        Army army_2 = new Army()
+                .addUnits("Warrior", 4)
+                .addUnits("Defender", 4)
+                .addUnits("Vampire", 6)
+                .addUnits("Lancer", 4);
+
+
+        var result = Battle.straight_fight(army_1, army_2);
+
+        assertTrue(result);
+    }
+
+    @Test
+    void battleTestStraightFightThird() {
+        Army army_1 = new Army()
+                .addUnits("Lancer", 7)
+                .addUnits("Vampire", 3)
+                .addUnits("Healer", 1)
+                .addUnits("Warrior", 4)
+                .addUnits("Healer", 1)
+                .addUnits("Defender", 2);
+        Army army_2 = new Army()
+                .addUnits("Warrior", 4)
+                .addUnits("Defender", 4)
+                .addUnits("Healer", 1)
+                .addUnits("Vampire", 6)
+                .addUnits("Lancer", 4);
+
+
+        var result = Battle.straight_fight(army_1, army_2);
+
+        assertFalse(result);
+    }
+
+    @Test
+    void battleTestStraightFightForth() {
+        Army army_1 = new Army()
+                .addUnits("Lancer", 4)
+                .addUnits("Warrior", 3)
+                .addUnits("Healer", 1)
+                .addUnits("Warrior", 4)
+                .addUnits("Healer", 1)
+                .addUnits("Knight", 2);
+        Army army_2 = new Army()
+                .addUnits("Warrior", 4)
+                .addUnits("Defender", 4)
+                .addUnits("Healer", 1)
+                .addUnits("Vampire", 2)
+                .addUnits("Lancer", 4);
+
+
+        var result = Battle.straight_fight(army_1, army_2);
+
+        assertTrue(result);
+    }
 }

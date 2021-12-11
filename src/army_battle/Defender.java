@@ -10,6 +10,11 @@ public class Defender extends Warrior {
     }
 
     @Override
+    protected int getInitHealth() {
+        return health;
+    }
+
+    @Override
     public int getAttack() {
         return attack;
     }

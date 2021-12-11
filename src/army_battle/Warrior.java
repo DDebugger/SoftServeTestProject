@@ -34,13 +34,13 @@ public class Warrior implements AttackCapable {
     }
 
     public void transmitSignal() {
-        if (!Objects.isNull(this.getBehind())) {
+        if (Objects.nonNull(this.getBehind())) {
             this.getBehind().handleSignalFrom(this);
         }
     }
 
     public void handleSignalFrom(Warrior warrior) {
-        if (!Objects.isNull(warrior.getBehind())) {
+        if (Objects.nonNull(warrior.getBehind())) {
             warrior.getBehind().transmitSignal();
         }
     }
