@@ -1,4 +1,4 @@
-package army_battle;
+package army_battle.unit;
 
 @FunctionalInterface
 public interface AttackCapable {

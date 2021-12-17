@@ -1,9 +1,32 @@
 package army_battle;
 
-import java.util.*;
+import army_battle.unit.Warlord;
+import army_battle.unit.Warrior;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class Army {
-    private final List<Warrior> units = new ArrayList<>();
+    private List<Warrior> units = new ArrayList<>();
+    private Warlord warlord = null;
+
+    private boolean isWarlordExists() {
+        boolean isWarlordExists = false;
+        List<Warrior> listToRemove = new ArrayList<>();
+        for (Warrior unit : units) {
+            if (unit instanceof Warlord w) {
+                if (!isWarlordExists) {
+                    this.warlord = w;
+                    isWarlordExists = true;
+                }else {
+                    listToRemove.add(unit);
+                }
+            }
+        }
+        this.units.removeAll(listToRemove);
+        return isWarlordExists;
+    }
 
     Army addUnits(String warriorType, int count) {
         final int end;
@@ -40,6 +63,12 @@ public class Army {
             if (getFirstWarrior().isPresent() && i > 0) {
                 getUnits().get(i - 1).setBehind(getUnits().get(i));
             }
+        }
+    }
+
+    public void moveUnits() {
+        if (isWarlordExists()) {
+            this.units = warlord.moveUnits(getUnits());
         }
     }
 }
